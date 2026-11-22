@@ -39,6 +39,11 @@ variable "ssh_public_key_path" {
   default     = "~/.ssh/id_ed25519.pub"
 }
 
+variable "allowed_web_cidr" {
+  description = "Origen permitido para HTTP (80): tu IP en CIDR, o \"*\" para todo internet"
+  type        = string
+}
+
 variable "allowed_ssh_cidr" {
   description = "IP pública desde la que se permite SSH, en formato CIDR (ej. 1.2.3.4/32)"
   type        = string

@@ -1,0 +1,14 @@
+# Quadlet: systemd crea el servicio "web.service" a partir de este archivo.
+# Ubicación en la VM: ~/.config/containers/systemd/web.kube
+[Unit]
+Description=Pod web (Flask + Nginx)
+After=network-online.target
+
+[Kube]
+Yaml=%h/app/pod.yaml
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
