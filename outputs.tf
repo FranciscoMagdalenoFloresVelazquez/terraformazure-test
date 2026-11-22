@@ -5,7 +5,7 @@ output "public_ip" {
 
 output "web_url" {
   description = "URL de la página web"
-  value       = "http://${azurerm_public_ip.pip.ip_address}"
+  value       = "https://${azurerm_public_ip.pip.ip_address}"
 }
 
 output "ssh_command" {
