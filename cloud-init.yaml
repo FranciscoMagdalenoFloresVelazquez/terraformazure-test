@@ -1,0 +1,18 @@
+#cloud-config
+# Configuración del sistema operativo en el PRIMER arranque de la VM.
+# Terraform la pasa a Azure como custom_data (ver main.tf).
+
+package_update: true
+packages:
+  - podman
+
+write_files:
+  # Permite a usuarios sin root (Podman rootless) usar los puertos 80 y 443
+  - path: /etc/sysctl.d/99-podman-port80.conf
+    content: |
+      net.ipv4.ip_unprivileged_port_start=80
+
+runcmd:
+  - sysctl --system
+  # Los servicios de usuario (el pod) arrancan con la VM, sin iniciar sesión
+  - loginctl enable-linger azureuser

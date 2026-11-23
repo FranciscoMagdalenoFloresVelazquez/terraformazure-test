@@ -94,6 +94,10 @@ resource "azurerm_linux_virtual_machine" "vm" {
   admin_username        = var.admin_username
   network_interface_ids = [azurerm_network_interface.nic.id]
 
+  # cloud-init: instala Podman y ajusta el sistema en el primer arranque.
+  # Ojo: cambiar este archivo obliga a recrear la VM.
+  custom_data = base64encode(file("${path.module}/cloud-init.yaml"))
+
   # Solo clave SSH, sin contraseña.
   disable_password_authentication = true
 

@@ -15,6 +15,10 @@ ssh "${HOST}" bash -s -- "${IP}" <<'EOF'
 set -euo pipefail
 IP="$1"
 
+# En una VM recién creada, esperar a que cloud-init termine (instala Podman)
+echo ">> Esperando a cloud-init"
+cloud-init status --wait >/dev/null
+
 # Certificado autofirmado para la IP pública. Se (re)genera si no existe
 # o si la IP cambió (por ejemplo, tras un destroy + apply).
 mkdir -p ~/certs && chmod 700 ~/certs
